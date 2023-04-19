@@ -12,6 +12,10 @@ app = Flask(__name__)
 line_bot_api = LineBotApi(os.environ.get('access_token'))
 handler = WebhookHandler(os.environ.get('secret'))
 
+@app.route("/", methods=['GET'])
+def hello():
+    return "Hello World!"
+
 @app.route("/callback", methods=['POST'])
 def callback():
     signature = request.headers['X-Line-Signature']
@@ -34,4 +38,4 @@ def echo(event):
         )
 
 if __name__ == "__main__":
-    app.run()
+    app.run(port = 8000, host = '0.0.0.0')
